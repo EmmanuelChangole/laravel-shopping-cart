@@ -22,23 +22,28 @@ A simple e-commerce shopping cart built with Laravel, React, and Inertia.js.
    npm install
    ```
 
-2. **Setup environment:**
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
+   2. **Setup environment:**
+      ```bash
+      cp .env.example .env
+      php artisan key:generate
+      ```
 
-3. **Configure database** in `.env`:
-   ```env
-   DB_CONNECTION=sqlite
-   QUEUE_CONNECTION=database
-   MAIL_MAILER=log
-   ```
+      3. **Configure database** in `.env`:
+         ```env
+            DB_CONNECTION=mysql
+            DB_HOST=mysql
+            DB_PORT=3306
+            DB_DATABASE=laravel
+            DB_USERNAME=sail
+            DB_PASSWORD=password
+      ```
 
-4. **Setup database:**
+4. **Setup Sail and database:**
    ```bash
-   php artisan migrate
-   php artisan db:seed
+   ./vendor/bin/sail build --no-cache
+   ./vendor/bin/sail up -d
+   ./vendor/bin/sail artisan migrate
+   ./vendor/bin/sail  artisan db:seed
    ```
 
 5. **Build assets:**
@@ -48,14 +53,11 @@ A simple e-commerce shopping cart built with Laravel, React, and Inertia.js.
 
 6. **Start servers:**
    ```bash
-   # Terminal 1: Backend
-   php artisan serve
-   
-   # Terminal 2: Frontend (development)
+   # Terminal 1: Frontend (development)
    npm run dev
    
    # Terminal 3: Queue worker (for notifications)
-   php artisan queue:work
+   ./vendor/bin/sail artisan queue:work
    ```
 
 7. **Access:** `http://localhost:8000`
@@ -89,12 +91,12 @@ A simple e-commerce shopping cart built with Laravel, React, and Inertia.js.
 
 **Low Stock Notification:**
 ```bash
-php artisan test:low-stock 1
+./vendor/bin/sail artisan test:low-stock 1
 ```
 
 **Daily Sales Report:**
 ```bash
-php artisan test:daily-sales-report
+./vendor/bin/sail artisan test:daily-sales-report
 ```
 
 ## Project Structure
